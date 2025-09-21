@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EduPredict — Early Academic Risk Detection</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue: #3B82F6;       /* Vibrant blue */
+      --green: #22C55E;      /* Vibrant green */
+      --orange: #F97316;     /* Vibrant orange */
+      --purple: #A855F7;     /* Vibrant purple */
+      --bg: #E0F2FE;         /* Light sky blue background */
+      --card-bg: #FFFFFF;    /* Keep white for cards */
+      --muted: #4B5563;      /* Slightly darker muted for better contrast */
+    }
+    *{box-sizing:border-box}
+    html,body{
+      height:100%;
+      margin:0;
+      font-family:'Poppins',system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background: linear-gradient(180deg, #FFFFFF 0%, var(--bg) 100%);
+      color: #111827; /* Darker text for better readability */
+    }
+
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:60;
+      background:transparent;
+      padding:18px 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      transition:backdrop-filter .25s,background-color .25s,box-shadow .25s;
+    }
+    header.scrolled{
+      backdrop-filter:blur(6px);
+      background:rgba(255,255,255,0.85);
+      box-shadow:0 6px 18px rgba(59, 130, 246, 0.15);
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      color:var(--blue);
+      font-size:20px;
+    }
+    .logo .cap{
+      width:40px;
+      height:40px;
+      border-radius:8px;
+      background:linear-gradient(135deg,var(--blue),var(--purple));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:700;
+    }
+    nav ul{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:flex;
+      gap:22px;
+      align-items:center;
+    }
+    nav a{
+      color:inherit;
+      text-decoration:none;
+      font-weight:600;
+      cursor:pointer;
+    }
+    .cta{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .btn{
+      padding:10px 16px;
+      border-radius:12px;
+      border:0;
+      cursor:pointer;
+      font-weight:600;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,var(--blue),var(--purple));
+      color:white;
+      box-shadow:0 8px 24px rgba(59,130,246,0.3);
+    }
+    .btn.primary:hover {
+      box-shadow: 0 12px 30px rgba(59,130,246,0.5);
+    }
+    .btn.ghost{
+      background:transparent;
+      color:var(--muted);
+    }
+    .btn.ghost:hover {
+      color: var(--blue);
+    }
+
+    /* Hero */
+    .hero{
+      padding:64px 6vw 56px;
+      display:grid;
+      grid-template-columns:1fr 480px;
+      gap:40px;
+      align-items:center;
+    }
+    .hero-left h1{
+      font-size:40px;
+      line-height:1.05;
+      margin:0 0 14px;
+    }
+    .hero-left p{
+      margin:0 0 22px;
+      color:var(--muted);
+      max-width:56ch;
+    }
+    .hero-buttons{
+      display:flex;
+      gap:14px;
+    }
+
+    /* Slider card */
+    .slider{
+      position:relative;
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 18px 40px rgba(16,24,40,0.08);
+      background:linear-gradient(180deg,#ffffff, #F7F9FF);
+      min-height:360px;
+    }
+    .slides{
+      display:flex;
+      transition:transform .6s cubic-bezier(.2,.9,.2,1);
+    }
+    .slide{
+      min-width:100%;
+      padding:28px;
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    .slide img{
+      width:220px;
+      height:220px;
+      object-fit:cover;
+      border-radius:12px;
+      flex-shrink:0;
+    }
+    .slide .slide-content{
+      flex:1;
+    }
+    .slider-controls{
+      position:absolute;
+      right:14px;
+      bottom:14px;
+      display:flex;
+      gap:8px;
+    }
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:rgba(0,0,0,0.12);
+      cursor:pointer;
+      transition: background-color 0.3s ease;
+    }
+    .dot.active{
+      background:var(--blue);
+    }
+
+    /* Sections */
+    .section{
+      padding:56px 6vw;
+    }
+    .features-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .card{
+      background:var(--card-bg);
+      padding:18px;
+      border-radius:14px;
+      box-shadow:0 8px 30px rgba(13,26,45,0.04);
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 18px 45px rgba(13,26,45,0.08);
+    }
+    .icon{
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:700;
+      font-size: 28px;
+      user-select:none;
+    }
+    .card h4{
+      margin:0 0 6px;
+    }
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .about{
+      display:flex;
+      gap:28px;
+      align-items:center;
+    }
+    .about img{
+      width:420px;
+      height:300px;
+      object-fit:cover;
+      border-radius:14px;
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1fr 320px;
+      gap:18px;
+      align-items:start;
+    }
+    .contact-card{
+      background:var(--card-bg);
+      padding:18px;
+      border-radius:12px;
+      box-shadow:0 8px 30px rgba(13,26,45,0.04);
+    }
+
+    footer{
+      padding:28px 6vw;
+      margin-top:28px;
+      border-radius:12px;
+      background:linear-gradient(90deg,var(--blue),var(--purple));
+      color:white;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-weight:600;
+      font-size:14px;
+    }
+
+    @media (max-width:1000px){
+      .hero{
+        grid-template-columns:1fr;
+        gap:28px;
+      }
+      .about img{
+        width:100%;
+        height:220px;
+      }
+      .features-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+      .contact-grid{
+        grid-template-columns:1fr;
+      }
+    }
+    @media (max-width:640px){
+      header{
+        padding:12px 16px;
+      }
+      .logo{
+        font-size:16px;
+      }
+      .hero{
+        padding:36px 4vw;
+      }
+      .hero-left h1{
+        font-size:28px;
+      }
+      .features-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    .reveal{
+      opacity:1;
+      transform:none;
+      transition:none;
+    }
+    .reveal.active{
+      opacity:1;
+      transform:none;
+    }
+  </style>
+</head>
+<body>
+  <header id="mainHeader">
+    <div class="logo"><div class="cap">EP</div>EduPredict</div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="cta">
+      <button class="btn ghost" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Learn More</button>
+      <button class="btn primary" id="getStarted">Get Started</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-left">
+        <div class="tag reveal" style="margin-bottom:14px">Student-first • Gov Initiative</div>
+        <h1 class="reveal">Empowering Students, Supporting Educators,<br>Preventing Dropouts.</h1>
+        <p class="reveal">EduPredict combines attendance, fees, and assessment records with simple predictive models and rule-based thresholds to identify students at risk — providing mentors early actionable insights and clear dashboards for decision making.</p>
+        <div class="hero-buttons reveal">
+          <button class="btn primary" id="heroStart">Get Started</button>
+          <button class="btn ghost" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Learn More</button>
+        </div>
+      </div>
+
+      <div class="slider" aria-hidden="false">
+        <div class="slides" id="slides">
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" alt="students learning">
+            <div class="slide-content">
+              <h3>Intuitive Dashboards</h3>
+              <p class="muted">Visualize attendance trends, risk scores and intervention outcomes with beautiful charts and exportable reports.</p>
+            </div>
+          </div>
+
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="teacher mentoring">
+            <div class="slide-content">
+              <h3>Alerts & Communication</h3>
+              <p class="muted">Send notifications to mentors and parents, track follow-ups, and close the loop on student interventions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slider-controls" id="dots"></div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <h3>Features</h3>
+      <div class="features-grid" style="margin-top:20px">
+        <div class="card"><div class="icon" style="background:var(--blue)">📊</div><div><h4>Data Ingestion & Integration</h4><p>Collects attendance, fees, and assessment records.</p></div></div>
+        <div class="card"><div class="icon" style="background:var(--green)">🧠</div><div><h4>Risk Identification</h4><p>Rule-based thresholds + predictive modeling.</p></div></div>
+        <div class="card"><div class="icon" style="background:var(--orange)">🎯</div><div><h4>Risk Scoring</h4><p>Early insights into student academic risks.</p></div></div>
+        <div class="card"><div class="icon" style="background:var(--purple)">📈</div><div><h4>Dashboards & Reports</h4><p>Easy-to-understand charts & graphs.</p></div></div>
+        <div class="card"><div class="icon" style="background:var(--blue)">🔔</div><div><h4>Notifications</h4><p>Alerts for mentors and guardians.</p></div></div>
+        <div class="card"><div class="icon" style="background:var(--green)">🎓</div><div><h4>Easy to Use</h4><p>Simple interface for educators & students.</p></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <h3>About</h3>
+      <div class="about" style="margin-top:20px">
+        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop" alt="About EduPredict">
+        <div>
+          <p>An initiative supported by the <strong>Rajasthan Government</strong>.</p>
+          <p>Our mission is to support students, empower educators, and reduce dropout rates by providing early insights into academic risks. We combine simple ML, clear UX and policy-focused reporting to make interventions effective.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <h3>Contact</h3>
+      <p class="muted">Get in touch for partnerships, deployments, or to request a demo.</p>
+      <div class="contact-grid" style="margin-top:16px">
+        <div class="contact-card">
+          <h4>Send us a message</h4>
+          <p class="muted">Email: edupaarakh@gmail.com</p>
+          <p class="muted">Phone: 1800 40 5400</p>
+          <form id="contactForm" style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+            <input type="text" id="name" placeholder="Your name" required style="padding:10px;border-radius:8px;border:1px solid #E6E9F2">
+            <input type="email" id="email" placeholder="Email" required style="padding:10px;border-radius:8px;border:1px solid #E6E9F2">
+            <textarea id="message" placeholder="Message" rows="4" style="padding:10px;border-radius:8px;border:1px solid #E6E9F2"></textarea>
+            <div style="display:flex;gap:8px">
+              <button class="btn primary" type="submit">Send Message</button>
+              <button class="btn ghost" type="reset">Reset</button>
+            </div>
+          </form>
+        </div>
+        <div>
+          <div class="contact-card" style="display:flex;flex-direction:column;gap:10px">
+            <h4>Get Support</h4>
+            <p class="muted">We provide onboarding support and training for administrators and teachers.</p>
+            <p style="margin:0;font-weight:700">Social</p>
+            <div style="display:flex;gap:8px;margin-top:6px">
+              <a href="#">Facebook</a> · <a href="#">Instagram</a> · <a href="#">Twitter</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>EduPredict</strong> • Early Academic Risk Detection
+    </div>
+    <div>© EduPredict 2025</div>
+  </footer>
+
+  <script>
+    // Slider
+    const slides = document.getElementById('slides');
+    const dots = document.getElementById('dots');
+    const slideCount = slides.children.length;
+    let idx = 0;
+    for(let i=0;i<slideCount;i++){
+      const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.addEventListener('click',()=>{idx=i;updateSlide();});dots.appendChild(d);
+    }
+    function updateSlide(){slides.style.transform=`translateX(-${idx*100}%)`;[...dots.children].forEach((dot,i)=>dot.classList.toggle('active',i===idx));}
+    setInterval(()=>{idx=(idx+1)%slideCount;updateSlide();},5000);
+
+    // Scroll header
+    const header=document.getElementById('mainHeader');
+    window.addEventListener('scroll',()=>header.classList.toggle('scrolled',window.scrollY>20));
+  </script>
+</body>
+</html>
