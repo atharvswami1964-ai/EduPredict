@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -10,21 +10,24 @@
 
   <style>
     :root{
-      --blue: #3B82F6;       /* Vibrant blue */
-      --green: #22C55E;      /* Vibrant green */
-      --orange: #F97316;     /* Vibrant orange */
-      --purple: #A855F7;     /* Vibrant purple */
-      --bg: #E0F2FE;         /* Light sky blue background */
-      --card-bg: #FFFFFF;    /* Keep white for cards */
-      --muted: #4B5563;      /* Slightly darker muted for better contrast */
+      --blue: #2563EB;     
+      --green: #059669;    
+      --orange: #D97706;   
+      --purple: #7C3AED;   
+      --pink: #DB2777;     
+      --yellow: #F59E0B;   
+      --teal: #0D9488;     
+      --card-bg: #FFFFFF;
+      --muted: #4B5563;    
     }
     *{box-sizing:border-box}
     html,body{
       height:100%;
       margin:0;
       font-family:'Poppins',system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background: linear-gradient(180deg, #FFFFFF 0%, var(--bg) 100%);
-      color: #111827; /* Darker text for better readability */
+      color: #111827;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      background-attachment: fixed;
     }
 
     /* Header */
@@ -41,8 +44,8 @@
     }
     header.scrolled{
       backdrop-filter:blur(6px);
-      background:rgba(255,255,255,0.85);
-      box-shadow:0 6px 18px rgba(59, 130, 246, 0.15);
+      background:rgba(255,255,255,0.95);
+      box-shadow:0 6px 18px rgba(37,99,235,0.15);
     }
     .logo{
       display:flex;
@@ -76,181 +79,339 @@
       text-decoration:none;
       font-weight:600;
       cursor:pointer;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    .cta{
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-    .btn{
-      padding:10px 16px;
-      border-radius:12px;
-      border:0;
-      cursor:pointer;
-      font-weight:600;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .btn.primary{
-      background:linear-gradient(90deg,var(--blue),var(--purple));
-      color:white;
-      box-shadow:0 8px 24px rgba(59,130,246,0.3);
-    }
-    .btn.primary:hover {
-      box-shadow: 0 12px 30px rgba(59,130,246,0.5);
-    }
-    .btn.ghost{
-      background:transparent;
-      color:var(--muted);
-    }
-    .btn.ghost:hover {
+    nav a:hover {
+      background-color: rgba(37, 99, 235, 0.1);
       color: var(--blue);
     }
 
-    /* Hero */
+    /* Hero with Background Image */
     .hero{
-      padding:64px 6vw 56px;
+      position: relative;
+      padding:120px 6vw 80px;
       display:grid;
       grid-template-columns:1fr 480px;
       gap:40px;
       align-items:center;
+      min-height: 100vh;
+      overflow: hidden;
+      background-image: url('https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.85) 0%, rgba(124, 58, 237, 0.75) 100%);
+      z-index: 0;
+    }
+    .hero-left {
+      z-index: 1;
+      color: white;
+      position: relative;
     }
     .hero-left h1{
-      font-size:40px;
-      line-height:1.05;
-      margin:0 0 14px;
+      font-size:48px;
+      line-height:1.1;
+      margin:0 0 20px;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
     .hero-left p{
-      margin:0 0 22px;
-      color:var(--muted);
-      max-width:56ch;
+      margin:0 0 30px;
+      max-width:56ch; 
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 20px;
+      line-height: 1.6;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
-    .hero-buttons{
-      display:flex;
-      gap:14px;
+    .hero-buttons{display:flex;gap:14px}
+    .tag {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 10px 20px;
+      border-radius: 30px;
+      display: inline-block;
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: white;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn{
+      padding:12px 24px;
+      border-radius:12px;
+      border:0;
+      cursor:pointer;
+      font-weight:600;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,var(--blue),var(--purple));
+      color:white;
+      box-shadow:0 8px 24px rgba(124,58,237,0.25);
+    }
+    .btn.primary:hover {
+      box-shadow: 0 12px 30px rgba(124,58,237,0.45);
+      transform: translateY(-2px);
+    }
+    .btn.ghost{
+      background:transparent;
+      color:white; 
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+    .btn.ghost:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.8);
+      transform: translateY(-2px);
     }
 
-    /* Slider card */
+    /* Slider */
     .slider{
       position:relative;
       border-radius:18px;
       overflow:hidden;
-      box-shadow:0 18px 40px rgba(16,24,40,0.08);
-      background:linear-gradient(180deg,#ffffff, #F7F9FF);
+      box-shadow:0 18px 40px rgba(16,24,40,0.15);
+      background:#fff;
       min-height:360px;
+      z-index: 1;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
     }
-    .slides{
-      display:flex;
-      transition:transform .6s cubic-bezier(.2,.9,.2,1);
+    .slides{display:flex;transition:transform .6s cubic-bezier(.2,.9,.2,1)}
+    .slide{min-width:100%;padding:28px;display:flex;gap:14px;align-items:center}
+    .slide img{width:220px;height:220px;object-fit:cover;border-radius:12px;flex-shrink:0}
+    .slide .slide-content{flex:1}
+    .slider-controls{position:absolute;right:14px;bottom:14px;display:flex;gap:8px}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.15);cursor:pointer;transition: background-color 0.3s ease}
+    .dot.active{background:var(--purple)}
+
+    /* Role Selection Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease;
     }
-    .slide{
-      min-width:100%;
-      padding:28px;
-      display:flex;
-      gap:14px;
-      align-items:center;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-    .slide img{
-      width:220px;
-      height:220px;
-      object-fit:cover;
-      border-radius:12px;
-      flex-shrink:0;
+    .modal-content {
+      background: white;
+      border-radius: 18px;
+      padding: 32px;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+      animation: slideUp 0.4s ease;
     }
-    .slide .slide-content{
-      flex:1;
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
-    .slider-controls{
-      position:absolute;
-      right:14px;
-      bottom:14px;
-      display:flex;
-      gap:8px;
+    .close-modal {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--muted);
+      transition: color 0.3s ease;
     }
-    .dot{
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      background:rgba(0,0,0,0.12);
-      cursor:pointer;
-      transition: background-color 0.3s ease;
+    .close-modal:hover {
+      color: var(--blue);
     }
-    .dot.active{
-      background:var(--blue);
+    .modal-title {
+      text-align: center;
+      margin-bottom: 24px;
+      color: var(--blue);
+      font-size: 28px;
+    }
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .role-card {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(13,26,45,0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .role-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 45px rgba(13,26,45,0.15);
+    }
+    .role-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 16px;
+      transition: transform 0.3s ease;
+    }
+    .role-card:hover .role-icon {
+      transform: scale(1.1);
+    }
+    .role-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+    .role-desc {
+      color: var(--muted);
+      font-size: 14px;
+      opacity: 0;
+      max-height: 0;
+      transition: opacity 0.3s ease, max-height 0.3s ease;
+      overflow: hidden;
+    }
+    .role-card:hover .role-desc {
+      opacity: 1;
+      max-height: 100px;
     }
 
     /* Sections */
     .section{
-      padding:56px 6vw;
+      padding:80px 6vw;
+      position: relative;
+    }
+    .section:nth-child(even) {
+      background: rgba(245, 247, 250, 0.7);
+    }
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 40px;
+      color: var(--blue);
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--purple));
+      border-radius: 2px;
     }
     .features-grid{
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap:18px;
+      gap:24px;
     }
     .card{
       background:var(--card-bg);
-      padding:18px;
+      padding:24px;
       border-radius:14px;
-      box-shadow:0 8px 30px rgba(13,26,45,0.04);
+      box-shadow:0 8px 30px rgba(13,26,45,0.05);
       display:flex;
-      gap:12px;
+      gap:16px;
       align-items:flex-start;
-      transition:transform .2s,box-shadow .2s;
+      transition:transform .3s,box-shadow .3s;
+      border: 1px solid rgba(0,0,0,0.05);
     }
     .card:hover{
       transform:translateY(-6px);
-      box-shadow:0 18px 45px rgba(13,26,45,0.08);
+      box-shadow:0 18px 45px rgba(13,26,45,0.1);
     }
     .icon{
-      width:56px;
-      height:56px;
+      width:60px;
+      height:60px;
       border-radius:12px;
       display:flex;
       align-items:center;
       justify-content:center;
       color:white;
       font-weight:700;
-      font-size: 28px;
+      font-size:28px;
       user-select:none;
+      flex-shrink: 0;
     }
     .card h4{
-      margin:0 0 6px;
+      margin:0 0 10px;
+      font-size: 20px;
     }
     .card p{
       margin:0;
       color:var(--muted);
-      font-size:14px;
+      font-size:16px;
+      line-height: 1.5;
     }
 
     .about{
       display:flex;
-      gap:28px;
+      gap:40px;
       align-items:center;
     }
     .about img{
-      width:420px;
-      height:300px;
+      width:480px;
+      height:320px;
       object-fit:cover;
       border-radius:14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .about-content {
+      flex: 1;
+    }
+    .about-content p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
 
     .contact-grid{
       display:grid;
       grid-template-columns:1fr 320px;
-      gap:18px;
+      gap:24px;
       align-items:start;
     }
     .contact-card{
       background:var(--card-bg);
-      padding:18px;
+      padding:24px;
       border-radius:12px;
-      box-shadow:0 8px 30px rgba(13,26,45,0.04);
+      box-shadow:0 8px 30px rgba(13,26,45,0.05);
+      border: 1px solid rgba(0,0,0,0.05);
     }
 
     footer{
       padding:28px 6vw;
       margin-top:28px;
-      border-radius:12px;
+      border-radius:12px 12px 0 0;
       background:linear-gradient(90deg,var(--blue),var(--purple));
       color:white;
       display:flex;
@@ -261,150 +422,166 @@
     }
 
     @media (max-width:1000px){
-      .hero{
-        grid-template-columns:1fr;
-        gap:28px;
-      }
-      .about img{
-        width:100%;
-        height:220px;
-      }
-      .features-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-      .contact-grid{
-        grid-template-columns:1fr;
-      }
+      .hero{grid-template-columns:1fr;gap:28px}
+      .about{flex-direction: column;}
+      .about img{width:100%;height:220px}
+      .features-grid{grid-template-columns:repeat(2,1fr)}
+      .contact-grid{grid-template-columns:1fr}
+      .roles-grid {grid-template-columns: 1fr;}
     }
     @media (max-width:640px){
-      header{
-        padding:12px 16px;
+      header{padding:12px 16px}
+      .logo{font-size:16px}
+      .hero{padding:80px 4vw 40px}
+      .hero-left h1{font-size:32px}
+      .features-grid{grid-template-columns:1fr}
+      .modal-content {padding: 20px;}
+      nav ul {
+        gap: 12px;
       }
-      .logo{
-        font-size:16px;
+      nav a {
+        padding: 6px 12px;
+        font-size: 14px;
       }
-      .hero{
-        padding:36px 4vw;
+      .section-title {
+        font-size: 28px;
       }
-      .hero-left h1{
-        font-size:28px;
-      }
-      .features-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
-    .reveal{
-      opacity:1;
-      transform:none;
-      transition:none;
-    }
-    .reveal.active{
-      opacity:1;
-      transform:none;
     }
   </style>
 </head>
 <body>
   <header id="mainHeader">
-    <div class="logo"><div class="cap">EP</div>EduPredict</div>
+    <div class="logo"><div class="cap">✨</div>EduPredict</div>
     <nav>
       <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#home">🏠 Home</a></li>
+        <li><a href="#features">⚙️ Features</a></li>
+        <li><a href="#about">ℹ️ About</a></li>
+        <li><a href="#contact">📞 Contact</a></li>
       </ul>
     </nav>
-    <div class="cta">
-      <button class="btn ghost" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Learn More</button>
-      <button class="btn primary" id="getStarted">Get Started</button>
-    </div>
   </header>
 
   <main>
     <section class="hero" id="home">
       <div class="hero-left">
-        <div class="tag reveal" style="margin-bottom:14px">Student-first • Gov Initiative</div>
-        <h1 class="reveal">Empowering Students, Supporting Educators,<br>Preventing Dropouts.</h1>
-        <p class="reveal">EduPredict combines attendance, fees, and assessment records with simple predictive models and rule-based thresholds to identify students at risk — providing mentors early actionable insights and clear dashboards for decision making.</p>
-        <div class="hero-buttons reveal">
-          <button class="btn primary" id="heroStart">Get Started</button>
-          <button class="btn ghost" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Learn More</button>
+        <div class="tag">🎓 Student-first • Gov Initiative</div>
+        <h1>Empowering Students, Supporting Educators,<br>Preventing Dropouts.</h1>
+        <p>EduPredict combines attendance, fees, and assessment records with simple predictive models and rule-based thresholds to identify students at risk — providing mentors early actionable insights and clear dashboards for decision making.</p>
+        <div class="hero-buttons">
+          <button class="btn primary" id="heroLogin">🔑 Login</button>
+          <button class="btn ghost" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">💡 Learn More</button>
         </div>
       </div>
 
-      <div class="slider" aria-hidden="false">
+      <div class="slider">
         <div class="slides" id="slides">
           <div class="slide">
             <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" alt="students learning">
             <div class="slide-content">
-              <h3>Intuitive Dashboards</h3>
+              <h3>📊 Intuitive Dashboards</h3>
               <p class="muted">Visualize attendance trends, risk scores and intervention outcomes with beautiful charts and exportable reports.</p>
             </div>
           </div>
-
           <div class="slide">
             <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="teacher mentoring">
             <div class="slide-content">
-              <h3>Alerts & Communication</h3>
+              <h3>🔔 Alerts & Communication</h3>
               <p class="muted">Send notifications to mentors and parents, track follow-ups, and close the loop on student interventions.</p>
             </div>
           </div>
         </div>
-
         <div class="slider-controls" id="dots"></div>
       </div>
     </section>
 
     <section class="section" id="features">
-      <h3>Features</h3>
-      <div class="features-grid" style="margin-top:20px">
-        <div class="card"><div class="icon" style="background:var(--blue)">📊</div><div><h4>Data Ingestion & Integration</h4><p>Collects attendance, fees, and assessment records.</p></div></div>
-        <div class="card"><div class="icon" style="background:var(--green)">🧠</div><div><h4>Risk Identification</h4><p>Rule-based thresholds + predictive modeling.</p></div></div>
-        <div class="card"><div class="icon" style="background:var(--orange)">🎯</div><div><h4>Risk Scoring</h4><p>Early insights into student academic risks.</p></div></div>
-        <div class="card"><div class="icon" style="background:var(--purple)">📈</div><div><h4>Dashboards & Reports</h4><p>Easy-to-understand charts & graphs.</p></div></div>
-        <div class="card"><div class="icon" style="background:var(--blue)">🔔</div><div><h4>Notifications</h4><p>Alerts for mentors and guardians.</p></div></div>
-        <div class="card"><div class="icon" style="background:var(--green)">🎓</div><div><h4>Easy to Use</h4><p>Simple interface for educators & students.</p></div></div>
+      <h2 class="section-title">⚙️ Features</h2>
+      <div class="features-grid">
+        <div class="card">
+          <div class="icon" style="background:var(--blue)">📊</div>
+          <div>
+            <h4>Data Ingestion & Integration</h4>
+            <p>Collects attendance, fees, and assessment records from multiple sources with seamless integration.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon" style="background:var(--green)">🧠</div>
+          <div>
+            <h4>Risk Identification</h4>
+            <p>Rule-based thresholds combined with predictive modeling to identify at-risk students early.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon" style="background:var(--orange)">🎯</div>
+          <div>
+            <h4>Risk Scoring</h4>
+            <p>Comprehensive scoring system providing early insights into student academic risks.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon" style="background:var(--purple)">📈</div>
+          <div>
+            <h4>Dashboards & Reports</h4>
+            <p>Easy-to-understand charts & graphs with exportable reports for administrators.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon" style="background:var(--pink)">🔔</div>
+          <div>
+            <h4>Notifications</h4>
+            <p>Automated alerts for mentors and guardians with tracking capabilities.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon" style="background:var(--yellow)">🎓</div>
+          <div>
+            <h4>Easy to Use</h4>
+            <p>Simple, intuitive interface designed for educators, students, and parents.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="section" id="about">
-      <h3>About</h3>
-      <div class="about" style="margin-top:20px">
+      <h2 class="section-title">ℹ️ About</h2>
+      <div class="about">
         <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop" alt="About EduPredict">
-        <div>
-          <p>An initiative supported by the <strong>Rajasthan Government</strong>.</p>
+        <div class="about-content">
+          <p>An initiative supported by the <strong>Rajasthan Government</strong>, EduPredict represents a forward-thinking approach to education management and student success.</p>
           <p>Our mission is to support students, empower educators, and reduce dropout rates by providing early insights into academic risks. We combine simple ML, clear UX and policy-focused reporting to make interventions effective.</p>
+          <p>With a focus on accessibility and impact, EduPredict is transforming how educational institutions identify and support at-risk students. 🌟</p>
         </div>
       </div>
     </section>
 
     <section class="section" id="contact">
-      <h3>Contact</h3>
-      <p class="muted">Get in touch for partnerships, deployments, or to request a demo.</p>
-      <div class="contact-grid" style="margin-top:16px">
+      <h2 class="section-title">📞 Contact</h2>
+      <p style="text-align:center; margin-bottom:30px; color:var(--muted); font-size:18px;">Get in touch for partnerships, deployments, or to request a demo. 🤝</p>
+      <div class="contact-grid">
         <div class="contact-card">
-          <h4>Send us a message</h4>
+          <h4>✉️ Send us a message</h4>
           <p class="muted">Email: edupaarakh@gmail.com</p>
           <p class="muted">Phone: 1800 40 5400</p>
-          <form id="contactForm" style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
-            <input type="text" id="name" placeholder="Your name" required style="padding:10px;border-radius:8px;border:1px solid #E6E9F2">
-            <input type="email" id="email" placeholder="Email" required style="padding:10px;border-radius:8px;border:1px solid #E6E9F2">
-            <textarea id="message" placeholder="Message" rows="4" style="padding:10px;border-radius:8px;border:1px solid #E6E9F2"></textarea>
-            <div style="display:flex;gap:8px">
-              <button class="btn primary" type="submit">Send Message</button>
-              <button class="btn ghost" type="reset">Reset</button>
+          <form id="contactForm" style="margin-top:20px;display:flex;flex-direction:column;gap:12px">
+            <input type="text" id="name" placeholder="Your name" required style="padding:12px;border-radius:8px;border:1px solid #E6E9F2; font-size:16px;">
+            <input type="email" id="email" placeholder="Email" required style="padding:12px;border-radius:8px;border:1px solid #E6E9F2; font-size:16px;">
+            <textarea id="message" placeholder="Message" rows="4" style="padding:12px;border-radius:8px;border:1px solid #E6E9F2; font-size:16px;"></textarea>
+            <div style="display:flex;gap:12px">
+              <button class="btn primary" type="submit">📨 Send Message</button>
+              <button class="btn ghost" type="reset" style="color:var(--muted); border-color:var(--muted);">🔄 Reset</button>
             </div>
           </form>
         </div>
         <div>
-          <div class="contact-card" style="display:flex;flex-direction:column;gap:10px">
-            <h4>Get Support</h4>
-            <p class="muted">We provide onboarding support and training for administrators and teachers.</p>
-            <p style="margin:0;font-weight:700">Social</p>
-            <div style="display:flex;gap:8px;margin-top:6px">
-              <a href="#">Facebook</a> · <a href="#">Instagram</a> · <a href="#">Twitter</a>
+          <div class="contact-card" style="display:flex;flex-direction:column;gap:12px">
+            <h4>🤝 Get Support</h4>
+            <p class="muted">We provide comprehensive onboarding support and training for administrators and teachers to ensure successful implementation.</p>
+            <p style="margin:0;font-weight:700; color:var(--blue);">🌐 Social Media</p>
+            <div style="display:flex;gap:12px;margin-top:6px">
+              <a href="#" style="color:var(--blue); text-decoration:none;">Facebook</a> · 
+              <a href="#" style="color:var(--blue); text-decoration:none;">Instagram</a> · 
+              <a href="#" style="color:var(--blue); text-decoration:none;">Twitter</a>
             </div>
           </div>
         </div>
@@ -412,28 +589,121 @@
     </section>
   </main>
 
+  <!-- Role Selection Modal -->
+  <div class="modal" id="roleModal">
+    <div class="modal-content">
+      <button class="close-modal" id="closeModal">×</button>
+      <h2 class="modal-title">Select Your Role</h2>
+      <div class="roles-grid">
+        <div class="role-card" data-role="admin">
+          <div class="role-icon" style="background: var(--blue); color: white;">🏢</div>
+          <div class="role-title">Admin / College</div>
+          <div class="role-desc">Manage college, generate codes, track teachers & students</div>
+        </div>
+        <div class="role-card" data-role="teacher">
+          <div class="role-icon" style="background: var(--green); color: white;">👨‍🏫</div>
+          <div class="role-title">Teacher</div>
+          <div class="role-desc">Upload attendance, marks, view class dashboards</div>
+        </div>
+        <div class="role-card" data-role="student">
+          <div class="role-icon" style="background: var(--orange); color: white;">👨‍🎓</div>
+          <div class="role-title">Student</div>
+          <div class="role-desc">Check your attendance, marks & AI risk alerts</div>
+        </div>
+        <div class="role-card" data-role="parent">
+          <div class="role-icon" style="background: var(--purple); color: white;">👪</div>
+          <div class="role-title">Parent</div>
+          <div class="role-desc">View your child's performance & receive alerts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <div>
-      <strong>EduPredict</strong> • Early Academic Risk Detection
+      <strong>EduPredict</strong> 🌈 • Early Academic Risk Detection
     </div>
-    <div>© EduPredict 2025</div>
+    <div>© EduPredict 2025 ✨</div>
   </footer>
 
   <script>
     // Slider
     const slides = document.getElementById('slides');
     const dots = document.getElementById('dots');
-    const slideCount = slides.children.length;
-    let idx = 0;
-    for(let i=0;i<slideCount;i++){
-      const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.addEventListener('click',()=>{idx=i;updateSlide();});dots.appendChild(d);
+    if(slides && dots){
+      const slideCount = slides.children.length;
+      let idx = 0;
+      for(let i=0;i<slideCount;i++){
+        const d=document.createElement('div');
+        d.className='dot'+(i===0?' active':'');
+        d.addEventListener('click',()=>{idx=i;updateSlide();});
+        dots.appendChild(d);
+      }
+      function updateSlide(){
+        slides.style.transform=`translateX(-${idx*100}%)`;
+        [...dots.children].forEach((dot,i)=>dot.classList.toggle('active',i===idx));
+      }
+      setInterval(()=>{idx=(idx+1)%slideCount;updateSlide();},5000);
     }
-    function updateSlide(){slides.style.transform=`translateX(-${idx*100}%)`;[...dots.children].forEach((dot,i)=>dot.classList.toggle('active',i===idx));}
-    setInterval(()=>{idx=(idx+1)%slideCount;updateSlide();},5000);
 
     // Scroll header
     const header=document.getElementById('mainHeader');
     window.addEventListener('scroll',()=>header.classList.toggle('scrolled',window.scrollY>20));
+
+    // Role Selection Modal
+    const heroLogin = document.getElementById('heroLogin');
+    const roleModal = document.getElementById('roleModal');
+    const closeModal = document.getElementById('closeModal');
+    
+    function openRoleModal() {
+      roleModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+    
+    function closeRoleModal() {
+      roleModal.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Re-enable scrolling
+    }
+    
+    heroLogin.addEventListener('click', openRoleModal);
+    closeModal.addEventListener('click', closeRoleModal);
+    
+    // Close modal when clicking outside
+    roleModal.addEventListener('click', (e) => {
+      if (e.target === roleModal) {
+        closeRoleModal();
+      }
+    });
+    
+    // Role selection
+    const roleCards = document.querySelectorAll('.role-card');
+    roleCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const role = card.getAttribute('data-role');
+        // In a real implementation, this would redirect to the appropriate login page
+        alert(`Redirecting to ${role} login page...`);
+        // For demo purposes, we'll just close the modal
+        closeRoleModal();
+      });
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        document.querySelector(targetId).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for your message! We will get back to you soon.');
+      this.reset();
+    });
   </script>
 </body>
 </html>
